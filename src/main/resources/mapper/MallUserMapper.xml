@@ -44,18 +44,18 @@
         ,#{isDeleted,jdbcType=TINYINT},#{lockedFlag,jdbcType=TINYINT},#{createTime,jdbcType=TIMESTAMP}
         ))
     </insert>
-    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="xyz.zfdu.mall.api.entity.MallUser" useGeneratedKeys="true">
+    <insert id="insertSelective"  parameterType="xyz.zfdu.mall.api.entity.MallUser" >
         insert into tb_mall_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
-                <if test="userId != null">userId,</if>
-                <if test="nickName != null">nickName,</if>
-                <if test="loginName != null">loginName,</if>
-                <if test="passwordMd5 != null">passwordMd5,</if>
-                <if test="introduceSign != null">introduceSign,</if>
+                <if test="userId != null">user_id,,</if>
+                <if test="nickName != null">nick_name,</if>
+                <if test="loginName != null">login_name,</if>
+                <if test="passwordMd5 != null">password_md5,</if>
+                <if test="introduceSign != null">introduce_sign,</if>
                 <if test="address != null">address,</if>
-                <if test="isDeleted != null">isDeleted,</if>
-                <if test="lockedFlag != null">lockedFlag,</if>
-                <if test="createTime != null">createTime,</if>
+                <if test="isDeleted != null">is_deleted,</if>
+                <if test="lockedFlag != null"> locked_flag,</if>
+                <if test="createTime != null">create_time,</if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
                 <if test="userId != null">user_id = #{userId,jdbcType=BIGINT},</if>
@@ -112,4 +112,17 @@
             create_time =  #{createTime,jdbcType=TIMESTAMP}
         where   user_id = #{userId,jdbcType=BIGINT} 
     </update>
+    <select id="selectByLoginName" resultType="xyz.zfdu.mall.api.entity.MallUser">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_mall_user
+        where login_name = #{loginName} and is_deleted = 0
+    </select>
+
+    <select id="selectByLoginNameAndPasswd" resultType="xyz.zfdu.mall.api.entity.MallUser">
+        select
+        <include refid="Base_Column_List"/>
+        from tb_mall_user
+        where login_name = #{loginName} and password_md5 = #{password} and is_deleted = 0
+    </select>
 </mapper>
