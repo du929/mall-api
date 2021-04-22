@@ -13,7 +13,7 @@ public interface MallUserService {
      *
      *  @param loginName 登录名
      *  @param password  密码
-     *   @return String
+     *  @return String
      */
     String register(String loginName, String password);
 
