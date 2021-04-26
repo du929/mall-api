@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
+
 /**
  * @author mqxu
  * @Entity com.mqxu.mall.api.entity.TbMallCarousel
